@@ -175,30 +175,30 @@ class AnalisadorLexico():
 
         tokens_validos = '''\n===================================================\n|Token\t\t\t|Tipo\n===================================================\n'''
 
-        arquivo = open('pogs/pog_01.txt', 'r')
+        arquivo = open('pogs/pog_01.top', 'r')
         linhas = arquivo.readlines()
 
         for linha in linhas:
             tokens = self.separa(linha)
             for token in tokens:
                 if self.isPalavraReservada(token):
-                    tokens_validos += "\n|" + token + "\t\t\t|Palavra Reservada"
+                    tokens_validos += '\n|{:_<15}|Palavra Reservada'.format(token)
                 elif self.isOperador(token):
-                    tokens_validos += "\n|" + token + "\t\t\t|Operador"
+                    tokens_validos += '\n|{:_<15}|Operador'.format(token)
                 elif self.isDelimitador(token):
-                    tokens_validos += "\n|" + token + "\t\t\t|Delimitador"
+                    tokens_validos += '\n|{:_<15}|Delimitador'.format(token)
                 elif self.isIdentificador(token):
-                    tokens_validos += "\n|" + token + "\t\t\t|Identificador"
+                    tokens_validos += '\n|{:_<15}|Identificador'.format(token)
                 elif self.isInteiro(token):
-                    tokens_validos += "\n|" + token + "\t\t\t|Tipo de dado"
+                    tokens_validos += '\n|{:_<15}|Tipo de dado'.format(token)
                 elif self.isReal(token):
-                    tokens_validos += "\n|" + token + "\t\t\t|Tipo de dado"
+                    tokens_validos += '\n|{:_<15}|Tipo de dado'.format(token)
                 elif self.isLetra(token):
-                    tokens_validos += "\n|" + token + "\t\t\t|Tipo de dado"
+                    tokens_validos += '\n|{:_<15}|Tipo de dado'.format(token)
                 elif self.isPalavra(token):
-                    tokens_validos += "\n|" + token + "\t\t\t|Tipo de dado"
+                    tokens_validos += '\n|{:_<15}|Tipo de dado'.format(token)
                 else:
-                    tokens_validos += "\nToken inválido : " + token
+                    tokens_validos += '\nToken inválido : '.format(token)
         arquivo.close()
         return tokens_validos
 
