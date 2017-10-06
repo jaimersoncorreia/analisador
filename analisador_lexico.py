@@ -83,7 +83,7 @@ class AnalisadorLexico():
                              "!=": "Diferença",
                              "=": "Atribuição"
                              }
-        self.t_palavras_reservadas = "inteiro real letra palavra se enquanto faca inicio fim leia escreva".split()
+        self.t_palavras_reservadas = "inteiro real letra palavra se enquanto faca inicio fim leia escreva".split(" ")
 
     def isDelimitador(self, s):
         delimitadores = self.t_delimitadores
@@ -144,25 +144,27 @@ class AnalisadorLexico():
         return False
 
     def separa(self, s):
-        linha = s.replace("\t", "")
-        linha = linha.replace("\n", "")
-        print("Linha : ", linha)
-        simbolos = [">", "<", ">=", "<=", "==", "!=", '=', '+', '-', '*', '/', ',', ';', '(', ')']
+        linha = s.replace("\t", " ")
+        linha = linha.replace("\n", " ")
+        simbolos = ['>', '<', '>=', '<=', '==', '!=', '=', '+', '-', '*', '/', ',', ';', '(', ')']
         lista = []
-        p = ''
-        for c in linha:
-            if c in [' ', '']:
-                lista.append(p)
-                p = ''
+        palavra = ''
+        for caracter in linha:
+            if caracter in [' ']:
+                lista.append('{}'.format(palavra))
+                palavra = ''
                 continue
-            elif c in simbolos:
-                lista.append(p)
-                lista.append(c)
-                p = ''
+
+            elif caracter in simbolos:
+                lista.append('{}'.format(palavra))
+                lista.append('{}'.format(caracter))
+                palavra = ''
                 continue
-            p += c
+            palavra += caracter
+        lista.append('{}'.format(palavra))
         while '' in lista:
             lista.remove('')
+
         return lista
 
     def getDescricao(self, dic, chave):
@@ -173,12 +175,15 @@ class AnalisadorLexico():
 
     def analisar(self):
 
-        tokens_validos = '''\n===================================================\n|Token\t\t\t|Tipo\n===================================================\n'''
-
+        tokens_validos = '\n==================================================='
+        tokens_validos += '\n|{:15}|Tipo'.format('Token')
+        tokens_validos += '\n===================================================\n'
+        #print(self.isPalavraReservada("fim"))
         arquivo = open('pogs/pog_01.top', 'r')
         linhas = arquivo.readlines()
 
         for linha in linhas:
+            #print(linha)
             tokens = self.separa(linha)
             for token in tokens:
                 if self.isPalavraReservada(token):
@@ -201,7 +206,6 @@ class AnalisadorLexico():
                     tokens_validos += '\nToken inválido : '.format(token)
         arquivo.close()
         return tokens_validos
-
 
 a = AnalisadorLexico()
 print(a.analisar())

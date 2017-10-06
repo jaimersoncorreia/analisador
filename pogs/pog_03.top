@@ -1,5 +1,5 @@
 inicio
-	int n;
+	inteiro n;
 	leia(n);
 	int i = 1;
 	int fat = 1;
