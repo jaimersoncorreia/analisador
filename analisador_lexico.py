@@ -59,6 +59,7 @@
 	Identificadores (ER) Ok
 		id 				- 	[_|a-z|A-Z][a-z|A-Z|0-9|_]*				
 '''
+import ply.lex as lex
 import re
 
 
@@ -179,7 +180,7 @@ class AnalisadorLexico():
         tokens_validos += '\n|{:15}|Tipo'.format('Token')
         tokens_validos += '\n===================================================\n'
         #print(self.isPalavraReservada("fim"))
-        arquivo = open('pogs/pog_01.top', 'r')
+        arquivo = open('pogs/pog_02.top', 'r')
         linhas = arquivo.readlines()
 
         for linha in linhas:
